@@ -1,0 +1,10 @@
+---
+applications:
+# replace the 'host' variable below with your own unique one, as this one can be already taken
+- name: go-dashdb-sample
+  memory: 256M
+  instances: 1
+  host: go-dashdb-sample
+  path: .
+  buildpack: https://github.com/ibmdb/db2gobuildpack
+      
