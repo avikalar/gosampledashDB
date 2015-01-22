@@ -39,7 +39,9 @@ func connect(res http.ResponseWriter, req *http.Request) {
 	appEnv, _ := cfenv.Current()
 	services, error := appEnv.Services.WithLabel("dashDB")
 	
-	if( services != nil ) {
+	if( error != nil ) {
+		fmt.Fprintln(res, "<h4>No dashDB service instance bound to the applicaiton. Please bind a dashDB service instance and retry.</h4>")
+	} else {
 		dashDB := services[0]
 		
 		connStr := []string{"DATABASE=", dashDB.Credentials["db"], ";", "HOSTNAME=", dashDB.Credentials["hostname"], ";", 
@@ -92,8 +94,6 @@ func connect(res http.ResponseWriter, req *http.Request) {
 			}
 			fmt.Fprintln(res, "<tr><td>", first_name, "</td><td>",last_name, "</td></tr>")
 		}
-	} else {
-		fmt.Fprintln(res, "<h4>No dashDB service instance bound to the applicaiton. Please bind a dashDB service instance and retry.</h4>")
 	}
 	fmt.Fprintln(res, "</table></body></html>")
 }
