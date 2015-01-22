@@ -19,7 +19,7 @@ func main() {
 
     err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
     if err != nil {
-      panic(err)
+      fmt.Fprintln(res, "Error occurred while processing request --> ", err )
     }
 }
 
